@@ -1,26 +1,35 @@
 #include <iostream>
 #include <cmath>
-#include <typeinfo>
+#include <string>
+#include <sstream>
 
 using namespace std;
-//1.1 квадратне рівняння
+
+double isNum() {
+    std::string userInput;
+    double numberValue;
+    bool validInput = false;
+
+    while (!validInput) {
+        std::cout << "Enter value:";
+        std::cin >> userInput;
+        std::istringstream iss(userInput);
+        if (iss >> numberValue) {
+            validInput = true; // Выход из цикла
+        } else {
+            std::cout << "is Nan" << std::endl;
+        }
+    }
+    return numberValue;
+}
+
 int squareLevel() {
-    auto a = 0 ;
-    auto b = 0;
-    auto c = 0;
-    cout << "a =";
-    cin >> a;
-    cout << "b =";
-    cin >> b;
-    cout << "c =";
-    cin >> c;
-//    try {
-//        if (typeid(a).name() != "i" || typeid(b).name() != "i" || typeid(c).name() != "i" ) throw std::exception();
-//    } catch (std::exception&e)
-//    {
-//        cout << "ERROR!" << endl;
-//        return 0;
-//    }
+    cout << "a = ";
+    auto a = isNum();
+    cout << "b = ";
+    auto b = isNum();
+    cout << "c = ";
+    auto c = isNum();
     if (a != 0) {
         double  D = pow(b, 2) - (4 * a * c);
         if (D > 0) {
@@ -28,20 +37,25 @@ int squareLevel() {
             double  x2 = (-b - sqrt(D) / (2 * a));
             cout << x1 << endl;
             cout << x2 << endl;
-        } else if (D == 0) {
+        }
+        else if (D == 0) {
             double  x1 = (-b / (2 * a));
             cout << x1 << endl;
-        } else {
+        }
+        else {
             cout << "This equation has not any solution" << endl;
         };
-    } else {
+    }
+    else {
         if (b != 0) {
             double  x1 = -c / b;
             cout << x1 << endl;
-        } else {
+        }
+        else {
             if (c == 0) {
                 cout << "infinite number of solutions" << endl;
-            } else {
+            }
+            else {
                 cout << "This equation has not any solution" << endl;
             };
         };
@@ -50,33 +64,25 @@ int squareLevel() {
 };
 // 1.2 друге завдання
 int secondTask() {
-    double  x;
-    int n;
-    int k;
-    cout << "x =" << endl;
-    cin >> x;
-    cout << "n =" << endl;
-    cin >> n;
-    cout << "k =" << endl;
-    cin >> k;
-//    try {
-//        if (typeid(x).name() != "i" || typeid(n).name() != "i" || typeid(k).name() != "i" ) throw std::exception();
-//    } catch (std::exception&e)
-//    {
-//        cout << "ERROR!" << endl;
-//        return 0;
-//    }
+    cout << "x = ";
+    auto x = isNum();
+    cout << "n = ";
+    auto n = isNum();
+    cout << "k = ";
+    auto k = isNum();
     double  y = 0;
     for (int i = 1; i < n; i++) {
-        if (x+2*i == 0) {
-            if (x+2*i != k) {
+        if (x + 2 * i == 0) {
+            if (x + 2 * i != k) {
                 cout << "Error /0" << endl;
                 return 1;
-            } else {
+            }
+            else {
                 i++;
             }
-        } else {
-            y += i/(x+2*i);
+        }
+        else {
+            y += i / (x + 2 * i);
         }
     }
     cout << y << endl;
@@ -84,73 +90,55 @@ int secondTask() {
 }
 // 1.3 третє завдання
 int thirdTask() {
-    double x;
-    int n;
-    cout << "x =" << endl;
-    cin >> x;
-    cout << "n =" << endl;
-    cin >> n;
-//    try {
-//        if (typeid(x).name() != "i" || typeid(n).name() != "i") throw std::exception();
-//    } catch (std::exception&e)
-//    {
-//        cout << "ERROR!" << endl;
-//        return 1;
-//    }
-    double  y = 1;
-    for (int i = 1; i <= n; i++) {
-        if (i % 2) {
-            y *= (x+i);
-        } else {
-            y *= (x-i);
+    cout << "x = ";
+    auto x = isNum();
+    cout << "n = ";
+    int n = round(isNum());
+    double  y;
+    if(n > 0) {
+        for (int i = 1; i < 2 * n; i++) {
+            if (i % 2) {
+                y *= (x + i);
+            }
+            else {
+                y *= (x - i);
+            };
         };
-    };
-    cout << y << endl;
+        cout << y << endl;
+    } else {
+        cout << "Error n is to small";
+    }
     return 0;
 };
 // 1.4 четверте завдання
 int fourthTask()
 {
-    double eps = 0;
     cout << "Enter eps: ";
-    cin >> eps;
-//    try {
-//        if (typeid(eps).name() != "i") throw std::exception();
-//    } catch (std::exception&e)
-//    {
-//        cout << "ERROR!" << endl;
-//        return 1;
-//    }
-    double k = 0.5;
-    double sum;
-    while (k > eps) {
-        sum += k;
+    double eps = isNum();
+    long double k = .5;
+    double sum = k;
+    while (k/2 > eps)
+    {
         k /= 2;
+        sum += k;
     }
     cout << "sum = " << sum << "\n";
     return 0;
 };
 // ідз 1.5
 int idz() {
-    int n;
-    cout << "n =" << endl;
-    cin >> n;
-    double a;
-    cout << "a =" << endl;
-    cin >> a;
-    double b;
-    cout << "b =" << endl;
-    cin >> b;
-    double h;
-    cout << "h =" << endl;
-    cin >> h;
-//    try {
-//        if (typeid(a).name() != "i" || typeid(b).name() != "i" || typeid(n).name() != "i" || typeid(h).name() != "i") throw std::exception();
-//    } catch (std::exception&e)
-//    {
-//        cout << "ERROR!" << endl;
-//        return 0;
-//    }
+    cout << "n = ";
+    int n = round(isNum());
+    while(n <= 0) {
+        cout << "n must be bigger then 0";
+        n = round(isNum());
+    }
+    cout << "a = ";
+    auto a = isNum();
+    cout << "b = ";
+    auto b = isNum();
+    cout << "h = ";
+    auto h = isNum();
     double x = a;
     while (x < b) {
         double y = 0;
@@ -161,19 +149,21 @@ int idz() {
                 };
             };
             cout << y << endl;
-        } else {
-            if (n > 4){
+        }
+        else {
+            if (n > 4) {
                 for (int i = 0; i < n - 3; i++) {
                     switch (i) {
-                        case 1:
-                            y -= (-x - i);
-                        default:
-                            y *= (-x - i);
+                    case 1:
+                        y -= (-x - i);
+                    default:
+                        y *= (-x - i);
                     }
                 };
                 cout << y << endl;
-            } else {
-                cout << "Error" << endl;
+            }
+            else {
+                cout << "The cycle ended because n must be greater than 0." << endl;
                 return 1;
             }
         };
@@ -183,10 +173,9 @@ int idz() {
 };
 
 int main() {
-//    squareLevel();
+//	squareLevel();
 //    secondTask();
 //    thirdTask();
     fourthTask();
 //    idz();
 }
-
